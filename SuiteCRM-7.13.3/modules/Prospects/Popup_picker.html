@@ -1,0 +1,113 @@
+<!--
+/**
+ *
+ * SugarCRM Community Edition is a customer relationship management program developed by
+ * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
+ *
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
+ * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along with
+ * this program; if not, see http://www.gnu.org/licenses or write to the Free
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ *
+ * You can contact SugarCRM, Inc. headquarters at 10050 North Wolfe Road,
+ * SW2-130, Cupertino, CA 95014, USA. or at email address contact@sugarcrm.com.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "Powered by
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
+ * reasonably feasible for technical reasons, the Appropriate Legal Notices must
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */
+
+/**
+
+ */
+-->
+<!-- BEGIN: main -->
+<!-- BEGIN: SearchHeader -->
+<script src="include/javascript/popup_helper.js?v={VERSION_MARK}" type="text/javascript"></script>
+
+<table border="0" cellpadding="0" cellspacing="0" class="edit view" width="100%">
+    <tr>
+        <td>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <form action="index.php" id="popup_query_form" method="post" name="popup_query_form">
+                        <td noWrap scope="row">{MOD.LBL_LIST_FIRST_NAME}&nbsp;&nbsp;<input class=dataField name="first_name"
+                                                                                           size="20"
+                                                                                           type=text
+                                                                                           value="{FIRST_NAME}"/></td>
+                        <td noWrap scope="row">{MOD.LBL_LIST_LAST_NAME}&nbsp;&nbsp;<input class=dataField name="last_name"
+                                                                                          size="20"
+                                                                                          type=text
+                                                                                          value="{LAST_NAME}"/></td>
+                        <td align="right"><input name="action" type="hidden" value="PopupProspects"/>
+                            <input name="query" type="hidden" value="true"/>
+                            <input name="record" type="hidden" value="{RECORD_VALUE}"/>
+                            <input name="module" type="hidden" value="{MODULE_NAME}"/>
+                            <input name="action" type="hidden" value="Popup"/>
+                            <input name="form_submit" type="hidden" value="{FORM_SUBMIT}"/>
+                            <input name="request_data" type="hidden" value="{request_data}"/>
+                            <input name="form" type="hidden" value="{FORM}"/>
+                            <input class="button" name="button" type="submit" value="{APP.LBL_SEARCH_BUTTON_LABEL}"/>
+                        </td>
+                    </form>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<!-- END: SearchHeader -->
+
+<table border="0" cellpadding="0" cellspacing="0" class="list view" width="100%">
+    <!-- BEGIN: list_nav_row -->
+    {PAGINATION}
+    <!-- END: list_nav_row -->
+    <tr height="20">
+        <td NOWRAP scope="col">{CHECKALL}</td>
+        <td scope="col" width="35%"><span><a class="listViewThLinkS1" href="{ORDER_BY}last_name">{MOD.LBL_LIST_NAME}{arrow_start}{last_name_arrow}{arrow_end}</a></span>
+        </td>
+        <td scope="col" width="15%"><span><a class="listViewThLinkS1" href="{ORDER_BY}title">{MOD.LBL_LIST_TITLE}{arrow_start}{title_arrow}{arrow_end}</a></span>
+        </td>
+        <td nowrap scope="col" width="35%"><span><a class="listViewThLinkS1" href="{ORDER_BY}email1">{MOD.LBL_LIST_EMAIL_ADDRESS}{arrow_start}{email1_arrow}{arrow_end}</a></span>
+        </td>
+        <td scope="col" width="15%"><span><a class="listViewThLinkS1" href="{ORDER_BY}phone_work">{MOD.LBL_LIST_PHONE}{arrow_start}{phone_work_arrow}{arrow_end}</a></span>
+        </td>
+
+    </tr>
+    <!-- BEGIN: row -->
+    <tr class="{ROW_COLOR}S1" height="20">
+        <td valign="top">{PREROW}</td>
+        <td scope='row' valign=TOP><span><{TAG_TYPE} href="#"  onclick="send_back('Prospects','{PROSPECT.ID}');">{PROSPECT.FULL_NAME}</{TAG_TYPE}></span>
+        </td>
+        <td valign=TOP><span>{PROSPECT.TITLE}</span></td>
+        <td valign=TOP><span>{PROSPECT.EMAIL1}</span></td>
+        <td nowrap="nowrap" valign="top"><span>{PROSPECT.PHONE_WORK}</span></td>
+    </tr>
+    <tr>
+        <td class="listViewHRS1" colspan="20"></td>
+    </tr>
+    <!-- END: row -->
+</table>
+{ASSOCIATED_JAVASCRIPT_DATA}
+<!-- END: main -->

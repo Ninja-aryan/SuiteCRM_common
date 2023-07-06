@@ -1,0 +1,140 @@
+<!--
+/**
+ *
+ * SugarCRM Community Edition is a customer relationship management program developed by
+ * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
+ *
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
+ * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along with
+ * this program; if not, see http://www.gnu.org/licenses or write to the Free
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ *
+ * You can contact SugarCRM, Inc. headquarters at 10050 North Wolfe Road,
+ * SW2-130, Cupertino, CA 95014, USA. or at email address contact@sugarcrm.com.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "Powered by
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
+ * reasonably feasible for technical reasons, the Appropriate Legal Notices must
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */
+
+/**
+
+ */
+-->
+
+{$ROLLOVERSTYLE}
+<form action="index.php" id="wizform" method="POST" name="wizform">
+    <input name="module" type="hidden" value="Campaigns">
+    <input name="record" type="hidden" value="{$ID}">
+    <input id="action" name="action" type="hidden">
+    <input name="return_module" type="hidden" value="{$RETURN_MODULE}">
+    <input name="return_id" type="hidden" value="{$RETURN_ID}">
+    <input name="return_action" type="hidden" value="{$RETURN_ACTION}">
+    <input name='campaign_type' type='hidden' value="{$MOD.LBL_NEWSLETTER_FORENTRY}">
+    <input id="wiz_total_steps" name="totalsteps" type="hidden" value="{$TOTAL_STEPS}">
+    <input id="wiz_current_step" name="currentstep" type="hidden" value='1'>
+    <input id="direction" name="wiz_direction" type="hidden" value='exit'>
+
+    <table cellspacing="1" class='other view'>
+        <tr>
+            <td rowspan='2' scope='row' width="10%">
+                <div id='nav'>
+                    {$NAV_ITEMS}
+
+                </div>
+
+            </td>
+            <td class='tabForm' rowspan='2' width='100%'>
+                <div id="wiz_message"></div>
+                <div class="wizard-unique-elem" id=wizard>
+
+                    {$STEPS}
+
+
+                </div>
+            </td>
+            <td width='5%'></td>
+        </tr>
+    </table>
+    <div id='buttons'>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="right" width='40%'>
+                    <div id='wiz_location_message'>
+                </td>
+                <td align="right" width='30%'>
+                    <table>
+                        <tr>
+                            <td>
+                                <div id="back_button_div"><input class="button" id="wiz_back_button"
+                                                                 name="back" onclick="javascript:navigate('back');"
+                                                                 title="{$APP.LBL_BACK}" type='button'
+                                                                 value="{$APP.LBL_BACK}"></div>
+                            </td>
+                            <td>
+                                <div id="cancel_button_div"><input accessKey="{$APP.LBL_CANCEL_BUTTON_KEY}"
+                                                                   class="button"
+                                                                   id="wiz_cancel_button"
+                                                                   name="button"
+                                                                   onclick="this.form.action.value='WizardHome'; this.form.module.value='Campaigns'; this.form.record.value='{$RETURN_ID}';"
+                                                                   title="{$APP.LBL_CANCEL_BUTTON_TITLE}" type="submit"
+                                                                   value="{$APP.LBL_CANCEL_BUTTON_LABEL}"></div>
+                            </td>
+                            <td nowrap="nowrap">
+                                <div id="save_button_div">
+                                    <input accesKey="{$APP.LBL_SAVE_BUTTON_TITLE}" class="button"
+                                           id="wiz_submit_button"
+                                           name="button" onclick="this.form.action.value='WizardNewsletterSave';this.form.direction.value='continue';gatherTrackers();" type="{$HIDE_CONTINUE}"
+                                           value="{$MOD.LBL_SAVE_CONTINUE_BUTTON_LABEL}">
+                                    <input accesKey="{$APP.LBL_SAVE_BUTTON_TITLE}" class="button"
+                                           id="wiz_submit_finish_button"
+                                           name="button" onclick="this.form.action.value='WizardNewsletterSave';this.form.direction.value='exit';gatherTrackers();" type="submit"
+                                           value="{$MOD.LBL_SAVE_EXIT_BUTTON_LABEL}">
+                                </div>
+                            </td>
+                            <td>
+                                <div id="next_button_div"><input class="button" id="wiz_next_button"
+                                                                 name="button" onclick="javascript:navigate('next');"
+                                                                 title="{$APP.LBL_NEXT_BUTTON_LABEL}" type='button'
+                                                                 value="{$APP.LBL_NEXT_BUTTON_LABEL}"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+{sugar_getscript file="modules/Campaigns/wizard.js"}
+
+{$WIZ_JAVASCRIPT}
+{$DIV_JAVASCRIPT}
+{$JAVASCRIPT}
+<script language="javascript">
+    {
+        $HILITE_ALL
+    }
+</script>
+

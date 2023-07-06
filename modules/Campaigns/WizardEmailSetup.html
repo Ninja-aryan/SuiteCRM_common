@@ -1,0 +1,513 @@
+<!--
+/**
+ *
+ * SugarCRM Community Edition is a customer relationship management program developed by
+ * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
+ *
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
+ * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along with
+ * this program; if not, see http://www.gnu.org/licenses or write to the Free
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ *
+ * You can contact SugarCRM, Inc. headquarters at 10050 North Wolfe Road,
+ * SW2-130, Cupertino, CA 95014, USA. or at email address contact@sugarcrm.com.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "Powered by
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
+ * reasonably feasible for technical reasons, the Appropriate Legal Notices must
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */
+-->
+{$ROLLOVER}
+{$ERROR}
+<form action="index.php" id="wizform" method="POST" name="wizform">
+    <input name="module" type="hidden" value="Campaigns">
+    <input name="record" type="hidden" value="{$ID}">
+    <input name="action" type="hidden">
+    <input name="return_module" type="hidden" value="{$RETURN_MODULE}">
+    <input name="return_id" type="hidden" value="{$RETURN_ID}">
+    <input name="return_action" type="hidden" value="{$RETURN_ACTION}">
+    <input name='campaign_type' type='hidden' value="{$MOD.LBL_NEWSLETTER}">
+    <input id="wiz_total_steps" name="totalsteps" type="hidden" value="3">
+    <input id="wiz_current_step" name="currentstep" type="hidden" value='0'>
+    <input id="wiz_summary_step" name="wiz_summary_step" type="hidden" value='create_email_setup_summary'>
+
+
+    <p>
+    <div id='buttons'>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="left" width='30%'>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <div id="back_button_div"><input class="button" id="wiz_back_button"
+                                                                 name="back" onclick="navigate('back');"
+                                                                 title="{$APP.LBL_BACK}" type='button'
+                                                                 value="{$APP.LBL_BACK}"></div>
+                            </td>
+                            <td>
+                                <div id="cancel_button_div"><input accessKey="{$APP.LBL_CANCEL_BUTTON_KEY}"
+                                                                   class="button"
+                                                                   id="wiz_cancel_button"
+                                                                   name="button"
+                                                                   onclick="this.form.action.value='{$RETURN_ACTION}'; this.form.module.value='{$RETURN_MODULE}'; this.form.record.value='{$RETURN_ID}'"
+                                                                   title="{$APP.LBL_CANCEL_BUTTON_TITLE}" type="submit"
+                                                                   value="{$APP.LBL_CANCEL_BUTTON_LABEL}"></div>
+                            </td>
+                            <td>
+                                <div id="save_button_div"><input accessKey="{$APP.LBL_SAVE_BUTTON_KEY}"
+                                                                 class="button"
+                                                                 id="wiz_submit_button" name="button"
+                                                                 onclick="this.form.action.value='WizardEmailSetupSave';"
+                                                                 title="{$APP.LBL_SAVE_BUTTON_TITLE}" type="submit"
+                                                                 value="{$APP.LBL_SAVE_BUTTON_LABEL}"></div>
+                            </td>
+                            <td>
+                                <div id="next_button_div"><input class="button" id="wiz_next_button"
+                                                                 name="button" onclick="navigate('next');create_summary();"
+                                                                 title="{$APP.LBL_NEXT_BUTTON_LABEL}"
+                                                                 type='button' value="{$APP.LBL_NEXT_BUTTON_LABEL}">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="right" width='40%'>
+                    <div id='wiz_location_message'>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </p>
+
+
+    <table border="0" cellpadding="0" cellspacing="3" class='other view' width="100%">
+        <tr>
+            <td style="vertical-align: top;" width="10%">
+                <div id='nav'>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td nowrap scope='row'>
+                                <div id='nav_step1'>{$MOD.LBL_NAVIGATION_MENU_SETUP}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap scope='row'>
+                                <div id='nav_step2'>{$MOD.LBL_NAVIGATION_MENU_NEW_MAILBOX}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap scope='row'>
+                                <div id='nav_step3'>{$MOD.LBL_NAVIGATION_MENU_SUMMARY}</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+
+            <td class='edit view' width='100%'>
+                <div id="wiz_message"></div>
+                <div class="wizard-unique-elem" id=wizard>
+
+                    <div id='step1'>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <th align="left" colspan="2"><h4 class="header-4">{$MOD.LBL_NAVIGATION_MENU_SETUP}</h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td scope="row"><span sugar='slot1'>
+	{$EMAILSETUP}{$MOD.LBL_EMAIL_SETUP_DESC}
+	</span sugar='slot'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td>
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+                                                    <tr>
+                                                        <td scope="row" width="20%">{$MOD.LBL_WIZ_FROM_NAME} <span
+                                                                class="required">{$APP.LBL_REQUIRED_SYMBOL}</span></td>
+                                                        <td width="30%"><input id="notify_fromname"
+                                                                               maxlength='128' name="wiz_step1_notify_fromname" size='25'
+                                                                               tabindex='1' title="{$MOD.LBL_WIZ_FROM_NAME}"
+                                                                               type="text"
+                                                                               value="{$notify_fromname}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td scope="row">{$MOD.LBL_MAIL_SENDTYPE}</td>
+                                                        <td>
+                                                            <select id="mail_sendtype" name="wiz_step1_mail_sendtype"
+                                                                    onChange="notify_setrequired();"
+                                                                    tabindex="1" title="{$MOD.LBL_MAIL_SENDTYPE}">{$mail_sendtype_options}</select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td scope="row">{$MOD.LBL_WIZ_FROM_ADDRESS} <span
+                                                                class="required">{$APP.LBL_REQUIRED_SYMBOL}</span></td>
+                                                        <td><input id='notify_fromaddress'
+                                                                   maxlength='128' name='wiz_step1_notify_fromaddress' size='25'
+                                                                   tabindex='1' title="{$MOD.LBL_WIZ_FROM_ADDRESS}"
+                                                                   type="text"
+                                                                   value="{$notify_fromaddress}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <div id="smtp_settings">
+                                                                <table cellpadding="0" cellspacing="0" width="100%">
+                                                                    <tr>
+                                                                        <td scope="row" width="20%">
+                                                                            {$MOD.LBL_MAIL_SMTPSERVER} <span
+                                                                                class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>
+                                                                        </td>
+                                                                        <td width="30%"><input id='mail_smtpserver'
+                                                                                               maxlength="255"
+                                                                                               name="wiz_step1_mail_smtpserver"
+                                                                                               size="25"
+                                                                                               tabindex="1" title="{$MOD.LBL_MAIL_SMTPSERVER}"
+                                                                                               type="text"
+                                                                                               value="{$mail_smtpserver}">
+                                                                        </td>
+                                                                        <td scope="row" width="20%">
+                                                                            {$MOD.LBL_MAIL_SMTPPORT} <span
+                                                                                class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>
+                                                                        </td>
+                                                                        <td width="30%"><input id='mail_smtpport'
+                                                                                               maxlength="5"
+                                                                                               name="wiz_step1_mail_smtpport"
+                                                                                               size="5"
+                                                                                               tabindex="1" title="{$MOD.LBL_MAIL_SMTPPORT}"
+                                                                                               type="text"
+                                                                                               value="{$mail_smtpport}">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td scope="row">
+                                                                            {$MOD.LBL_MAIL_SMTPAUTH_REQ}
+                                                                        </td>
+                                                                        <td>
+                                                                            <input class="checkbox"
+                                                                                   id='mail_smtpauth_req'
+                                                                                   name='wiz_step1_mail_smtpauth_req'
+                                                                                   onclick="notify_setrequired();" tabindex='1'
+                                                                                   title="{$MOD.LBL_MAIL_SMTPAUTH_REQ}" type="checkbox"
+                                                                                   value="1"
+                                                                                   {$mail_smtpauth_req}>
+                                                                        </td>
+                                                                        <td scope="row" width="15%">&nbsp;&nbsp;{$APP.LBL_EMAIL_SMTP_SSL_OR_TLS}:</td>
+                                                                        <td width="35%">
+                                                                            <select id="mail_smtpssl"
+                                                                                    name="mail_smtpssl"
+                                                                                    tabindex="1" title="{$APP.LBL_EMAIL_SMTP_SSL_OR_TLS}">{$MAIL_SSL_OPTIONS}</select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="4">
+                                                                            <div id="smtp_auth">
+                                                                                <table cellpadding="0" cellspacing="0"
+                                                                                       width="100%">
+                                                                                    <tr>
+                                                                                        <td scope="row" width="20%">
+                                                                                            {$MOD.LBL_MAIL_SMTPUSER}
+                                                                                            <span class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>
+                                                                                        </td>
+                                                                                        <td width="30%"><input
+                                                                                                id='mail_smtpuser'
+                                                                                                maxlength="255"
+                                                                                                name="wiz_step1_mail_smtpuser"
+                                                                                                size="25"
+                                                                                                tabindex='1'
+                                                                                                title='{$MOD.LBL_MAIL_SMTPUSER}'
+                                                                                                type="text"
+                                                                                                value="{$mail_smtpuser}"></td>
+                                                                                        <td scope="row" width="20%">
+                                                                                            {$MOD.LBL_MAIL_SMTPPASS}
+                                                                                            <span class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>
+                                                                                        </td>
+                                                                                        <td width="30%"><input
+                                                                                                id='mail_smtppass'
+                                                                                                maxlength="255"
+                                                                                                name="wiz_step1_mail_smtppass"
+                                                                                                size="25"
+                                                                                                tabindex='1'
+                                                                                                title="{$MOD.LBL_MAIL_SMTPPASS}"
+                                                                                                type="password"
+                                                                                                value="{$mail_smtppass}"></td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td><h4 class="header-4">{$MOD.LBL_MASS_MAILING_TITLE}</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                    <tr>
+                                                        <td scope="row" width="40%">{$MOD.LBL_EMAILS_PER_RUN}&nbsp;<span
+                                                                class="required">{$APP.LBL_REQUIRED_SYMBOL}</span></td>
+                                                        <td width="50%"><input
+                                                                id='massemailer_campaign_emails_per_run'
+                                                                maxlength='128'
+                                                                name='wiz_step1_massemailer_campaign_emails_per_run' tabindex='1'
+                                                                title="{$MOD.LBL_EMAILS_PER_RUN}" type="text" value="{$EMAILS_PER_RUN}">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td scope="row">{$MOD.LBL_LOCATION_TRACK}&nbsp;<span
+                                                                class="required">{$APP.LBL_REQUIRED_SYMBOL}</span></td>
+                                                        <td><input id='massemailer_tracking_entities_location_type' name='wiz_step1_massemailer_tracking_entities_location_type'
+                                                                   onclick="change_state(this);"
+                                                                   title="{$MOD.LBL_DEFAULT_LOCATION}"
+                                                                   type='radio' value="1"
+                                                                   {$DEFAULT_CHECKED}>{$MOD.LBL_DEFAULT_LOCATION}&nbsp;<input
+                                                                id='massemailer_tracking_entities_location_type' name='wiz_step1_massemailer_tracking_entities_location_type'
+                                                                onclick="change_state(this);"
+                                                                title="{$MOD.LBL_CUSTOM_LOCATION}"
+                                                                type='radio'
+                                                                value="2" {$USERDEFINED_CHECKED}>{$MOD.LBL_CUSTOM_LOCATION}
+                                                    </tr>
+                                                    <tr>
+                                                        <td scope="row"></td>
+                                                        <td><input
+                                                                id='massemailer_tracking_entities_location'
+                                                                maxlength='128'
+                                                                name='wiz_step1_massemailer_tracking_entities_location'
+                                                                title="{$MOD.LBL_LOCATION_TRACK}" type="text"
+                                                                value="{$TRACKING_ENTRIES_LOCATION}" {$TRACKING_ENTRIES_LOCATION_STATE}></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td scope="row">
+                                                            <div id="rollover">
+                                                                {$MOD.LBL_CAMP_MESSAGE_COPY}&nbsp;<span
+                                                                    class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>
+                                                                <a class="rollover" href="#"><span>{$MOD.LBL_CAMP_MESSAGE_COPY_DESC}</span><img
+                                                                        border="0"
+                                                                        src="{sugar_getimagepath file='helpInline.gif'}"></a>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>
+                                                            <input name='massemailer_email_copy' type='radio' value="1"
+                                                                   {$YES_CHECKED}>{$MOD.LBL_YES}&nbsp;<input
+                                                                name='massemailer_email_copy' type='radio' value="2"
+                                                                {$NO_CHECKED}>{$MOD.LBL_NO}
+                                                        </td>
+
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <script type="text/javascript">
+                            {
+                                literal
+                            }
+
+                            function change_state(radiobutton) {
+
+                                if (radiobutton.value == '1') {
+                                    radiobutton.form['wiz_step1_massemailer_tracking_entities_location'].disabled = true;
+                                    {
+                                        /literal}
+                                        radiobutton.form['wiz_step1_massemailer_tracking_entities_location'].value = '{$MOD.TRACKING_ENTRIES_LOCATION_DEFAULT_VALUE}';
+                                        {
+                                            literal
+                                        }
+                                    }
+                                else
+                                    {
+                                        radiobutton.form['wiz_step1_massemailer_tracking_entities_location'].disabled = false;
+                                        radiobutton.form['wiz_step1_massemailer_tracking_entities_location'].value = '{/literal}{$SITEURL}{literal}';
+                                    }
+                                }
+                                {
+                                    /literal}
+                        </script>
+                    </div>
+
+
+                    <div class="step2" id='step2'>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td colspan="2"><h3>{$MOD.LBL_NAVIGATION_MENU_NEW_MAILBOX}</h3></td>
+                                <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan='3' scope="row">{$MAILBOXES_DETECTED_MESSAGE}</td>
+            </td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td scope="row"><input id='wiz_new_mbox' name='wiz_new_mbox' type='hidden' value='0'>
+                <input class="checkbox" id='create_mbox' name='wiz_create_mbox' onclick="notify_setrequired();"
+                       title="{$MOD.LBL_MAIL_SMTPAUTH_REQ}"
+                       type="checkbox" {$MBOX_NEEDED}>&nbsp;{$MOD.LBL_CREATE_MAILBOX}
+            </td>
+            <td colspan='3'>&nbsp;</td>
+        </tr>
+    </table>
+    <div id="new_mbox">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td NOWRAP scope="row" valign="top" width="20%">
+                    <span>{$MOD.LBL_MAILBOX_NAME} <span class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>&nbsp;</span>
+                </td>
+                <td valign="top" width="30%">
+                    <span><input id='name' maxlength='255' name='wiz_step2_name' size='30' tabindex='10'
+                                 title='{$MOD.LBL_MAILBOX_NAME}' type="text" value=""></span></td>
+                <td NOWRAP scope="row" valign="top" width="20%">
+                    <span>{$MOD.LBL_FROM_ADDR}:&nbsp;</span></td>
+                <td NOWRAP valign="top" width="30%">
+                    <span><input id="from_addr" name="wiz_step2_from_addr" size='30' title='{$MOD.LBL_FROM_ADDR}'>&nbsp;</span>
+                </td>
+
+            </tr>
+            <tr>
+                <td scope="row" valign="top">
+                    <span>{$MOD.LBL_SERVER_URL}: <span class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>&nbsp;</span>
+                </td>
+                <td valign="top" width="30%">
+                    <span><input id='server_url' maxlength='100' name='wiz_step2_server_url' size='30'
+                                 tabindex='20' title='{$MOD.LBL_SERVER_URL}' type="text" value=""></span></td>
+                <td scope="row" valign="top">
+				<span>{$MOD.LBL_LOGIN}:
+				<span class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>&nbsp;</span></td>
+                <td valign="top" width="30%">
+                    <span><input id='email_user' maxlength='100' name='wiz_step2_email_user' size='30'
+                                 tabindex='70' title="{$MOD.LBL_LOGIN}" type="text" value=""></span></td>
+            </tr>
+            <tr>
+                <td NOWRAP scope="row" valign="top" width="20%">
+				<span>{$MOD.LBL_SERVER_TYPE}:
+				<span class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>&nbsp;</span></td>
+                <td valign="top" width="30%">
+				<span>
+				<select id='protocol' name='wiz_step2_protocol' onchange="toggle_monitored_folder(this); setPortDefault();" tabindex='30'
+                        title='{$MOD.LBL_SERVER_TYPE}'>{$PROTOCOL}</select></span></td>
+                <td scope="row" valign="top">
+				<span>{$MOD.LBL_PASSWORD}:
+				<span class="required">{$APP.LBL_REQUIRED_SYMBOL}&nbsp;</span></td>
+                <td valign="top" width="30%">
+                    <span><input id='email_password' maxlength='100' name='wiz_step_email_password'
+                                 size='30' tabindex='80' title="{$MOD.LBL_PASSWORD}" type="password" value="{$PASSWORD}"
+                                 {$IE_DISABLED}></span></span></td>
+            </tr>
+            <tr>
+                <td NOWRAP scope="row" valign="top" width="20%">
+				<span>{$MOD.LBL_PORT}:
+				<span class="required">{$APP.LBL_REQUIRED_SYMBOL}</span>&nbsp;</span></td>
+                <td valign="top" width="30%">
+				<span>
+				<input id='port' name='wiz_step2_port' size='10' tabindex="40" title="{$MOD.LBL_PORT}" type='text'
+                       value="{$PORT}">
+            <td NOWRAP scope="row" valign="top" width="20%">
+                <span><div id='label_inbox' style="{$DISPLAY}">{$MOD.LBL_MAILBOX}: <span class="required">{$APP.LBL_REQUIRED_SYMBOL}</div></span>&nbsp;</span>
+                </td>
+                <td valign="top" width="30%">
+                <span><div id='inbox' style="{$DISPLAY}"><input id="mailbox" maxlength='50' name='mailbox'
+                                                                size='30' tabindex='90' title="{$MOD.LBL_MAILBOX}" type="text"
+                                                                value="{$MOD.LBL_MAILBOX_DEFAULT}"></div>
+                </span></td>
+            </tr>
+            <tr>
+                <td NOWRAP scope="row" valign="top" width="1%">
+                    <div class="maybe">
+                        <span>{$MOD.LBL_SSL}:&nbsp;</span>
+                    </div>
+                </td>
+                <td valign="top" width="33%">
+                <span>
+                    <div class="maybe">
+                        <div id="rollover">
+                            <a class="rollover" href="#"><span>{$MOD.LBL_SSL_DESC}</span><img border="0"
+                                                                                              src="{sugar_getimagepath file='helpInline.gif'}"></a>
+                        </div>
+                        <input class="checkbox" id='ssl' name='ssl' onClick="setPortDefault();" tabindex='45' title="{$MOD.LBL_SSL}"
+                               type='checkbox' value="1" {$IE_DISABLED}>
+                    </div>
+                </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </div>
+
+
+    <div class="step3" id='step3'>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td>
+                    <h3>{$MOD.LBL_NAVIGATION_MENU_SUMMARY}</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id='wiz_summ'></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    </div>
+    </td>
+    </tr>
+    </table>
+
+
+</form>
+<input id="mark_read" type='hidden'>
+
+<div id='pop3_warn'></div>
+
+{sugar_getscript file="modules/Campaigns/wizard.js"}
+{sugar_getscript file="modules/InboundEmail/InboundEmail.js"}
+{$WIZ_JAVASCRIPT}
+{$DIV_JAVASCRIPT}
+{$JAVASCRIPT}
+
+

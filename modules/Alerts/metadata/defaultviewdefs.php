@@ -1,0 +1,3 @@
+<?php
+$viewdefs ['Alerts'] =
+    array();

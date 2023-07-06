@@ -1,0 +1,116 @@
+<!--
+/**
+ *
+ * SugarCRM Community Edition is a customer relationship management program developed by
+ * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
+ *
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
+ * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along with
+ * this program; if not, see http://www.gnu.org/licenses or write to the Free
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ *
+ * You can contact SugarCRM, Inc. headquarters at 10050 North Wolfe Road,
+ * SW2-130, Cupertino, CA 95014, USA. or at email address contact@sugarcrm.com.
+ *ew
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "Powered by
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
+ * reasonably feasible for technical reasons, the Appropriate Legal Notices must
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */
+
+/**
+
+ */
+-->
+<form action="index.php" id="wizform" method="POST" name="wizform">
+    <input id="module" name="module" type="hidden" value="Campaigns">
+    <input id="action" name="action" type="hidden" = "WizardHome">
+    <input id="process_form" name="process_form" type="hidden" value='false'>
+    <input id="return_module" name="return_module" type="hidden" value="{$RETURN_MODULE}">
+    <input id="return_id" name="return_id" type="hidden" value="{$RETURN_ID}">
+    <input id="return_action" name="return_action" type="hidden" value="{$RETURN_ACTION}">
+    <input id="record" name="record" type="hidden" value="{$ID}">
+    <input id="direct_step" name="direct_step" type="hidden" value="1">
+    <input id="campaign_id" name="campaign_id" type="hidden" value="">
+    <input id="wiz_mass" name="wiz_mass" type="hidden" value="">
+    <input id="mode" name="mode" type="hidden" value="">
+
+
+    <table cellspacing="1" class='other view'>
+        <tr>
+            <td rowspan='2' scope='row' style='vertical-align: top;' width='10%'>
+                <div id='nav'>
+                    {$NAV_ITEMS}
+
+                </div>
+
+            </td>
+
+            <td class='edit view' rowspan='2' width='100%'>
+                {$CAMPAIGN_DIAGNOSTIC_LINK}<p>
+                <table border="0" cellpadding="0" cellspacing="1" width="100%">
+                    <tr>
+                        <td>
+                            <div id='campaign_summary'>{$CAMPAIGN_TBL}</div>
+                            <p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                            <div id='campaign_trackers'>{$TRACKERS_TBL}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                            <div id='campaign_targets'>{$TARGETS_TBL}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                            <div id='campaign_marketing'>{$MARKETING_TBL}</div>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+    <script>
+        {
+            $MSG_SCRIPT
+        }
+    </script>
+</form>
+		

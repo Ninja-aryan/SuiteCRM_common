@@ -1,0 +1,113 @@
+<!--
+/**
+ *
+ * SugarCRM Community Edition is a customer relationship management program developed by
+ * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
+ *
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
+ * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along with
+ * this program; if not, see http://www.gnu.org/licenses or write to the Free
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ *
+ * You can contact SugarCRM, Inc. headquarters at 10050 North Wolfe Road,
+ * SW2-130, Cupertino, CA 95014, USA. or at email address contact@sugarcrm.com.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "Powered by
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
+ * reasonably feasible for technical reasons, the Appropriate Legal Notices must
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */
+
+/**
+
+ */
+-->
+<!-- BEGIN: main -->
+<style>
+    #subjectfield {
+        height: 1.6em;
+    }
+</style>
+
+{JAVASCRIPT}
+<script language="Javascript" src="modules/EmailTemplates/EmailTemplate.js?v={VERSION_MARK}"
+        type="text/javascript"></script>
+<script language="Javascript" src="cache/include/javascript/sugar_grp1_yui.js?v={VERSION_MARK}"
+        type="text/javascript"></script>
+<script language="Javascript" src="modules/Campaigns/WebToLead.js?v={VERSION_MARK}" type="text/javascript"></script>
+
+<script type="text/javascript">
+    {
+        FIELD_DEFS_JS
+    }
+</script>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td>
+            <form action="index.php" enctype="multipart/form-data" id="WebToLeadForm" method="POST"
+                  name="WebToLeadForm">
+                <input name="module" type="hidden" value="Campaigns">
+                <input name="record" type="hidden" value="{ID}">
+                <input name="action" type="hidden"> <input name="form" type="hidden">
+                <input name="return_module" type="hidden" value="{RETURN_MODULE}">
+                <input name="return_id" type="hidden" value="{RETURN_ID}">
+                <input name="return_action" type="hidden" value="{RETURN_ACTION}">
+                <input name="inpopupwindow" type="hidden" value="{INPOPUPWINDOW}">
+                <input name="old_id" type="hidden" value="{OLD_ID}">
+                <input accessKey="{APP.LBL_SAVE_BUTTON_KEY}" class="button" name="button"
+                       onclick="this.form.action.value='WebToLeadFormSave';" title="{APP.LBL_SAVE_WEB_TO_LEAD_FORM}" type="submit"
+                       value="{APP.LBL_SAVE_WEB_TO_LEAD_FORM}">
+                <input accessKey="{APP.LBL_CANCEL_BUTTON_KEY}"
+                       class="button" name="button" onclick="{CANCEL_SCRIPT}" title="{APP.LBL_CANCEL_BUTTON_TITLE}"
+                       type="submit"
+                       value="{APP.LBL_CANCEL_BUTTON_LABEL}">
+        </td>
+        <td align="right" nowrap><span class="required">{APP.LBL_REQUIRED_SYMBOL}</span> {APP.NTC_REQUIRED}</td>
+        <td align='right'>{ADMIN_EDIT}</td>
+    </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" class="edit view" width="100%">
+    <tr>
+        <td>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+                <tr>
+                    <td scope="row" valign="top">
+                        {MOD.LBL_BODY}
+                    </td>
+                    <!-- BEGIN: textarea -->
+                    <td colspan="4">
+                        <textarea cols="100" id='body_html' name='body_html' rows="40"
+                                  tabindex='90'>{BODY_HTML}</textarea>
+                    </td>
+                    <!-- END: textarea -->
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</form>
+{tiny}
+<!-- END: main -->

@@ -1,0 +1,222 @@
+<!--
+
+/**
+ *
+ * SugarCRM Community Edition is a customer relationship management program developed by
+ * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
+ *
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
+ * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along with
+ * this program; if not, see http://www.gnu.org/licenses or write to the Free
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ *
+ * You can contact SugarCRM, Inc. headquarters at 10050 North Wolfe Road,
+ * SW2-130, Cupertino, CA 95014, USA. or at email address contact@sugarcrm.com.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "Powered by
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
+ * reasonably feasible for technical reasons, the Appropriate Legal Notices must
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */
+
+
+/**
+
+ */
+
+-->
+
+
+<!-- --------------------------------------------------------------------------- -->
+<!-- BEGIN: merge_cell_label -->
+<td valign="top" width="{CELL_WIDTH}">{FIELD_LABEL}&nbsp;{REQUIRED_SYMBOL}</td>
+<!-- END: merge_cell_label -->
+<!-- --------------------------------------------------------------------------- -->
+<!-- BEGIN: merge_cell_edit_text -->
+<td valign="top" width="{CELL_WIDTH}"><span><input id="{EDIT_FIELD_NAME}" maxlength="150"
+                                                   name="{EDIT_FIELD_NAME}" size="35" tabindex="{TAB_INDEX}" type="text"
+                                                   value="{EDIT_FIELD_VALUE}"></span></td>
+<!-- END: merge_cell_edit_text -->
+<!-- BEGIN: merge_cell_edit_textarea -->
+<td valign="top" width="{CELL_WIDTH}"><span><textarea cols="35" id="{EDIT_FIELD_NAME}"
+                                                      name="{EDIT_FIELD_NAME}" rows="4"
+                                                      tabindex="{TAB_INDEX}">{EDIT_FIELD_VALUE}</textarea></span></td>
+<!-- END: merge_cell_edit_textarea -->
+<!-- BEGIN: merge_cell_edit_checkbox -->
+<td valign="top" width="{CELL_WIDTH}"><span><input class="checkbox" id="{EDIT_FIELD_NAME}" name="{EDIT_FIELD_NAME}"
+                                                   tabindex="{TAB_INDEX}" type="checkbox" {EDIT_FIELD_VALUE}/></span>
+</td>
+<!-- END: merge_cell_edit_checkbox -->
+<!-- BEGIN: merge_cell_edit_datetime -->
+<td valign="top" width="{CELL_WIDTH}"><span><input id='{EDIT_FIELD_NAME}_date' maxlength='10' name='{EDIT_FIELD_NAME}'
+                                                   size='11' tabindex='{TAB_INDEX}' type="text"
+                                                   value="{EDIT_FIELD_VALUE}"> <span
+        alt="{APP.LBL_ENTER_DATE}" class="suitepicon suitepicon-module-calendar" id="{EDIT_FIELD_NAME}_trigger"></span> <span
+        class="dateFormat"></span><span id='{EDIT_FIELD_NAME}_time_section'></span><input id='{EDIT_FIELD_NAME}'
+                                                                                          name='{EDIT_FIELD_NAME}'
+                                                                                          type="hidden"></span>
+</td>
+<script src="include/SugarFields/Fields/Datetimecombo/Datetimecombo.js?v={VERSION_MARK}"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    var combo_
+    {
+        EDIT_FIELD_NAME
+    }
+    = new Datetimecombo("{EDIT_FIELD_VALUE}", "{EDIT_FIELD_NAME}", "{USER_DATEFORMAT}", '', '', '');
+    //Render the remaining widget fields
+    text = combo_
+    {
+        EDIT_FIELD_NAME
+    }
+    .html('');
+    document.getElementById('{EDIT_FIELD_NAME}_time_section').innerHTML = text;
+
+    //Call eval on the update function to handle updates to calendar picker object
+    eval(combo_
+    {
+        EDIT_FIELD_NAME
+    }
+    .jsscript('')
+    )
+    ;
+
+    function update_ {
+        EDIT_FIELD_NAME
+    }
+
+    _available()
+    {
+        YAHOO.util.Event.onAvailable("{EDIT_FIELD_NAME}_date", this.handleOnAvailable, this);
+    }
+
+    update_
+    {
+        EDIT_FIELD_NAME
+    }
+    _available.prototype.handleOnAvailable = function (me) {
+        Calendar.setup({
+            onClose: update_
+        {
+            EDIT_FIELD_NAME
+        }
+    ,
+        inputField : "{EDIT_FIELD_NAME}_date",
+            daFormat
+    :
+        "{CALENDAR_DATEFORMAT}",
+            ifFormat
+    :
+        "{CALENDAR_DATEFORMAT}",
+            button
+    :
+        "{EDIT_FIELD_NAME}_trigger",
+            singleClick
+    :
+        true,
+            step
+    :
+        1,
+            weekNumbers
+    :
+        false
+    })
+        ;
+
+        //Call update for first time to round hours and minute values
+        combo_
+        {
+            EDIT_FIELD_NAME
+        }
+    .
+        update();
+    }
+
+    var obj_
+    {
+        EDIT_FIELD_NAME
+    }
+    = new update_
+    {
+        EDIT_FIELD_NAME
+    }
+    _available();
+</script>
+<!-- END: merge_cell_edit_datetime -->
+<!-- BEGIN: merge_cell_edit_date -->
+<td valign="top" width="{CELL_WIDTH}"><span><input id='{EDIT_FIELD_NAME}' maxlength='10' name='{EDIT_FIELD_NAME}'
+                                                   size='11' tabindex='{TAB_INDEX}' type="text"
+                                                   value="{EDIT_FIELD_VALUE}"> <span
+        align="absmiddle" alt="{APP.LBL_ENTER_DATE}" class="suitepicon suitepicon-module-calendar"
+        id="{EDIT_FIELD_NAME}_trigger"></span> <span class="dateFormat">{USER_DATEFORMAT}</span></span></td>
+<script type="text/javascript">
+    Calendar.setup({
+        inputField: "{EDIT_FIELD_NAME}",
+        daFormat: "{CALENDAR_DATEFORMAT}",
+        ifFormat: "{CALENDAR_DATEFORMAT}",
+        showsTime: false,
+        button: "{EDIT_FIELD_NAME}_trigger",
+        singleClick: true,
+        step: 1
+    });
+</script>
+<!-- END: merge_cell_edit_date -->
+<!-- BEGIN: merge_cell_edit_dropdown -->
+<td valign="top" width="{CELL_WIDTH}"><span><select id="{EDIT_FIELD_NAME}" name="{EDIT_FIELD_NAME}"
+                                                    tabindex="{TAB_INDEX}">{SELECT_OPTIONS}</select></span></td>
+<!-- END: merge_cell_edit_dropdown -->
+<!-- BEGIN: merge_cell_edit_multidropdown -->
+<td valign="top" width="{CELL_WIDTH}"><span><select id="{EDIT_FIELD_NAME}" multiple="true"
+                                                    name="{EDIT_FIELD_NAME}[]" size="6"
+                                                    tabindex="{TAB_INDEX}">{SELECT_OPTIONS}</select></span></td>
+<!-- END: merge_cell_edit_multidropdown -->
+<!-- BEGIN: merge_cell_edit_popup -->
+<td valign="top" width="{CELL_WIDTH}"><span><input autocomplete="off" class="sqsEnabled" id="{POPUP_NAME_FIELD}"
+                                                   name="{POPUP_NAME_FIELD}" tabindex="{TAB_INDEX}" type="text"
+                                                   value="{POPUP_NAME_VALUE}"><input id='{POPUP_ID_FIELD}'
+                                                                                     name='{POPUP_ID_FIELD}'
+                                                                                     type="hidden"
+                                                                                     value="{POPUP_ID_VALUE}"/>
+		<input class="button" name=btn1 onclick='open_popup("{POPUP_MODULE}", 600, 400, "", true, false, {ENCODED_POPUP_DATA},"single",true);' tabindex='1'
+               title="{APP.LBL_SELECT_BUTTON_TITLE}" type="button"
+               value='{APP.LBL_SELECT_BUTTON_LABEL}'/></span>
+</td>
+<!-- END: merge_cell_edit_popup -->
+
+<!-- --------------------------------------------------------------------------- -->
+<!-- --------------------------------------------------------------------------- -->
+
+<!-- --------------------------------------------------------------------------- -->
+<!-- BEGIN: merge_cell_field_value -->
+<td valign="top" width="{CELL_WIDTH}"><span><input class="button" name="copyValue"
+                                                   onclick='copy_value({ENCODED_JSON_DATA});' title="{HOVER_TEXT}"
+                                                   type="button" value="<<"/>&nbsp;{FIELD_VALUE}</span></td>
+<!-- END: merge_cell_field_value -->
+<!-- BEGIN: merge_cell_field_value_checkbox -->
+<td valign="top" width="{CELL_WIDTH}"><span><input class="button" name="copyValue"
+                                                   onclick='copy_value({ENCODED_JSON_DATA});' title="{HOVER_TEXT}"
+                                                   type="button" value="<<"/>&nbsp;<input class="checkbox" disabled
+                                                                                             type="checkbox"
+                                                                                             {FIELD_VALUE}/></span></td>
+<!-- END: merge_cell_field_value_checkbox -->
+<!-- --------------------------------------------------------------------------- -->
